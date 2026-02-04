@@ -8,4 +8,6 @@ public interface HealthCentreManager {
     void removeStaff();
 
     void loadFromFile() throws IOException;
+
+    void saveToFile() throws IOException;
 }
