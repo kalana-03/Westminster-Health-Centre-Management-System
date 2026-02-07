@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class WestminsterHealthCentreManager implements HealthCentreManager {
 
@@ -21,6 +18,15 @@ public class WestminsterHealthCentreManager implements HealthCentreManager {
         }
     }
 
+    public ArrayList<StaffMember> sortByName() {
+        ArrayList<StaffMember> sortedList = new ArrayList<>(staffMemberList);
+
+        sortedList.sort(Comparator.comparing(StaffMember::getSurName)
+                .thenComparing(StaffMember::getName));
+
+        return sortedList;
+    }
+
     public ArrayList<StaffMember> getStaffMemberList() {
         return staffMemberList;
     }
@@ -32,13 +38,62 @@ public class WestminsterHealthCentreManager implements HealthCentreManager {
             System.out.println("\n");
             System.out.println("Westminster Health Centre Management System");
             System.out.println("=".repeat(50));
+            System.out.println("0. To exist without saving");
             System.out.println("1. Add New Staff Member");
             System.out.println("2. Remove Staff Member");
             System.out.println("3. View All Staff");
             System.out.println("4. Search Staff by ID");
+            System.out.println("5. Sort staff by Name");
             System.out.println("6. To load from a file");
             System.out.println("7. Save and Exit");
             System.out.print("\nEnter your choice: ");
+
+            try {
+                int choice = Integer.parseInt(sc.nextLine().trim());
+
+                switch (choice) {
+                    case 0:
+                        System.out.println("Exiting without saving..");
+                        run = false;
+                        break;
+                    case 1:
+                        addStaff();
+                        break;
+                    case 2:
+                        removeStaff();
+                        break;
+                    case 3:
+                        viewStaff();
+                        break;
+                    case 4:
+                        searchStaffByID();
+                        break;
+                    case 5:
+                        sortByName();
+                        System.out.println("List is Sorted by Name.");
+                        break;
+                    case 6:
+                        try {
+                            loadFromFile();
+                            System.out.println("Load from the file.");
+                        } catch (IOException e) {
+                            System.err.println("There was error loading the data.");
+                        }
+                        break;
+                    case 7:
+                        try {
+                            saveToFile();
+                            System.out.println("Successfully saved the Data");
+                        } catch (IOException e) {
+                            System.err.println("There was error saving the data");
+                        }
+                        break;
+                    default:
+                        System.out.println("Invalid Option");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Input should be a number !");
+            }
         }
     }
 
@@ -86,6 +141,12 @@ public class WestminsterHealthCentreManager implements HealthCentreManager {
 
                 System.out.print("Enter hours per week: ");
                 int hours = Integer.parseInt(sc.nextLine().trim());
+
+                Receptionist receptionist = new Receptionist(ID, fName, surName, DoB, contact, deskNumber, hours);
+
+                staffMemberList.add(receptionist);
+                System.out.println("Receptionist added Successfully");
+
             }
 
             else {

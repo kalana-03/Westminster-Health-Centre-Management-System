@@ -1,11 +1,10 @@
-import java.time.LocalDate;
-
-public class Receptionist extends StaffMember{
+public class Receptionist extends StaffMember {
     private int deskNumber;
     private int hoursPerWeek;
 
-    public Receptionist(String uniqueID, String name, String surName, String contactNo, String dob, int deskNumber, int hoursPerWeek){
-        super(uniqueID,name, surName, contactNo, dob);
+    public Receptionist(String uniqueID, String name, String surName, String contactNo, String dob, int deskNumber,
+            int hoursPerWeek) {
+        super(uniqueID, name, surName, contactNo, dob);
         this.deskNumber = deskNumber;
         this.hoursPerWeek = hoursPerWeek;
 
@@ -28,7 +27,7 @@ public class Receptionist extends StaffMember{
     }
 
     @Override
-    public String getRole(){
+    public String getRole() {
         return "Receptionist";
     }
 
@@ -36,6 +35,6 @@ public class Receptionist extends StaffMember{
     public String toString() {
         return super.toString() +
                 "deskNumber=" + deskNumber +
-                ", hoursPerWeek=" + hoursPerWeek ;
+                ", hoursPerWeek=" + hoursPerWeek;
     }
 }
